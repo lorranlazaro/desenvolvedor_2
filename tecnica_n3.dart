@@ -1,19 +1,49 @@
 void main() {
-  
-  List<double> faturamentoDiario = [
-    100.0, 200.0, 300.0, 400.0, 500.0, 600.0, 900.0, 2000.0,
-    2900.0, 3000.0, 3200.0, 4400.0, 5500.0, 6600.0, 7700.0, 8800.0
+  List<Map<String, dynamic>> faturamentoDiario = [
+    {"dia": 1, "valor": 22174.1664},
+    {"dia": 2, "valor": 24537.6698},
+    {"dia": 3, "valor": 26139.6134},
+    {"dia": 4, "valor": 0.0},
+    {"dia": 5, "valor": 0.0},
+    {"dia": 6, "valor": 26742.6612},
+    {"dia": 7, "valor": 0.0},
+    {"dia": 8, "valor": 42889.2258},
+    {"dia": 9, "valor": 46251.174},
+    {"dia": 10, "valor": 11191.4722},
+    {"dia": 11, "valor": 0.0},
+    {"dia": 12, "valor": 0.0},
+    {"dia": 13, "valor": 3847.4823},
+    {"dia": 14, "valor": 373.7838},
+    {"dia": 15, "valor": 2659.7563},
+    {"dia": 16, "valor": 48924.2448},
+    {"dia": 17, "valor": 18419.2614},
+    {"dia": 18, "valor": 0.0},
+    {"dia": 19, "valor": 0.0},
+    {"dia": 20, "valor": 35240.1826},
+    {"dia": 21, "valor": 43829.1667},
+    {"dia": 22, "valor": 18235.6852},
+    {"dia": 23, "valor": 4355.0662},
+    {"dia": 24, "valor": 13327.1025},
+    {"dia": 25, "valor": 0.0},
+    {"dia": 26, "valor": 0.0},
+    {"dia": 27, "valor": 25681.8318},
+    {"dia": 28, "valor": 1718.1221},
+    {"dia": 29, "valor": 13220.495},
+    {"dia": 30, "valor": 8414.61}
   ];
 
-  double menorFaturamento = faturamentoDiario.reduce((a, b) => a < b ? a : b);
- 
-  double maiorFaturamento = faturamentoDiario.reduce((a, b) => a > b ? a : b);
+  List faturamentoValidos = faturamentoDiario
+      .where((registro) => registro['valor'] > 0.0)
+      .map((registro) => registro['valor'])
+      .toList();
   
-  double somaFaturamento = faturamentoDiario.reduce((a, b) => a + b);
+  double menorFaturamento = faturamentoValidos.reduce((a, b) => a < b ? a : b);
+  double maiorFaturamento = faturamentoValidos.reduce((a, b) => a > b ? a : b);
+  
+  double somaFaturamento = faturamentoValidos.reduce((a, b) => a + b);
+  double mediaMensal = somaFaturamento / faturamentoValidos.length;
 
-  double mediaMensal = somaFaturamento / faturamentoDiario.length;
-
-  int diasAcimaMedia = faturamentoDiario.where((faturamento) => faturamento > mediaMensal).length;
+  int diasAcimaMedia = faturamentoValidos.where((faturamento) => faturamento > mediaMensal).length;
 
   print("O Menor valor de faturamento foi: R\$ ${menorFaturamento}");
   print("O Maior valor de faturamento foi: R\$ ${maiorFaturamento}");
